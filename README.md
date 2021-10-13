@@ -4,7 +4,7 @@
 
 — bartread [on Hacker News](https://news.ycombinator.com/item?id=28826839)
 
-![DOOM WebAssembly loading..](https://github.com/healeycodes/doom-checkboxes/blob/main/loading.png)
+![Preview image of DOOM/DOOM checkboxes](https://github.com/healeycodes/doom-checkboxes/blob/main/preview.png)
 
 [Play it now](https://healeycodes.github.io/doom-checkboxes/) (desktop only).
 
@@ -17,8 +17,6 @@ Id software gave us [DOOM](https://en.wikipedia.org/wiki/Doom_(franchise)).
 Cornelius Diekmann gave us [DOOM via WebAssembly](https://github.com/diekmann/wasm-fizzbuzz).
 
 Today, I'm pleased to stand on top of these giants' shoulders, and give you DOOM via Checkboxes.
-
-![Preview image of DOOM video and DOOM checkboxes](https://github.com/healeycodes/doom-checkboxes/blob/main/preview.png)
 
 ## How
 
@@ -61,7 +59,7 @@ document.body.addEventListener("keyup", function (e) {
 
 While the `.wasm` is downloaded and processed, the grid displays a message via [print](https://www.bryanbraun.com/checkboxland/#print).
 
-![DOOM WebAssembly loading..](loading.png)
+![DOOM WebAssembly loading..](https://github.com/healeycodes/doom-checkboxes/blob/main/loading.png)
 
 Afterwards, the user is instructed to click anywhere (a user action is required so that the `<video>` can be programmatically played) and the game begins!
 
