@@ -22,11 +22,24 @@ Today, I'm pleased to stand on top of these giants' shoulders, and give you DOOM
 
 ## How
 
-DOOM runs via WebAssembly and displays in a hidden `<canvas>`. I use [HTMLCanvasElement.captureStream()](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/captureStream) to turn this into a MediaStream.
+DOOM runs via WebAssembly in a hidden `<canvas>`. I use [HTMLCanvasElement.captureStream()](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/captureStream) to turn this into a MediaStream. A `<video>` element displays this MediaStream and is then consumed by [renderVideo](https://www.bryanbraun.com/checkboxland/#rendervideo) from Checkboxland.
 
-A `<video>` element displays this MediaStream and is then consumed by [renderVideo](https://www.bryanbraun.com/checkboxland/#rendervideo) from Checkboxland. Optionally, this can be hidden.
+Optionally, the `<video>` element can be hidden as well. However, test users were unable to exit the main menu without the aid of the original hi-res DOOM.
 
-Key events are forwarded to the hidden `<canvas>`
+Our screen is a 160 by 100 grid of native checkboxes. Higher resolutions work but FPS drops off dramatically.
+
+```js
+const cbl = new Checkboxland({
+  dimensions: "160x100",
+  selector: "#checkboxes",
+});
+```
+
+The cursed CSS property [zoom](https://developer.mozilla.org/en-US/docs/Web/CSS/zoom) is used to shrink the checkboxes down.
+
+> Non-standard: This feature is non-standard and is not on a standards track. Do not use it on production sites facing the Web: it will not work for every user.
+
+Key events are forwarded to the hidden `<canvas>` to avoid focus issues.
 
 ```js
 const forwardKey = (e, type) => {
@@ -45,6 +58,12 @@ document.body.addEventListener("keyup", function (e) {
   forwardKey(e, "keyup");
 });
 ```
+
+While the `.wasm` is downloaded and processed, the grid displays a message via [print](https://www.bryanbraun.com/checkboxland/#print).
+
+![DOOM WebAssembly loading..](loading.png)
+
+Afterwards, the user is instructed to click anywhere (a user action is required so that the `<video>` can be programmatically played) and the game begins!
 
 ## Development
 
