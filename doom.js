@@ -1,4 +1,5 @@
 // Copied from https://github.com/diekmann/wasm-fizzbuzz
+// Lots of unnecessary code in here
 
 "use strict";
 var memory = new WebAssembly.Memory({ initial: 108 });

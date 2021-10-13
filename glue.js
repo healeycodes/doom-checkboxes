@@ -12,7 +12,7 @@ cbl.print("DOOM WebAssembly loading..");
 
 video.srcObject = canvas.captureStream();
 
-document.body.onclick = () => {
+document.body.onmousedown = () => {
   if (window.doomLoaded !== true) {
     return;
   }
