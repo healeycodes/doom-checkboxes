@@ -24,7 +24,7 @@ Today, I'm pleased to stand on top of these giants' shoulders, and give you DOOM
 
 DOOM runs via WebAssembly and displays in a hidden `<canvas>`. I use [HTMLCanvasElement.captureStream()](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/captureStream) to turn this into a MediaStream.
 
-A `<video>` element displays this MediaStream and is then consumed by [renderVideo](https://www.bryanbraun.com/checkboxland/#rendervideo) from Checkboxland.
+A `<video>` element displays this MediaStream and is then consumed by [renderVideo](https://www.bryanbraun.com/checkboxland/#rendervideo) from Checkboxland. Optionally, this can be hidden.
 
 Key events are forwarded to the hidden `<canvas>`
 
