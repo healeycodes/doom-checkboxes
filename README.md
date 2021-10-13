@@ -6,7 +6,7 @@
 
 ![DOOM WebAssembly loading..](https://github.com/healeycodes/doom-checkboxes/blob/main/loading.png)
 
-[Play it now](..) on (desktop only).
+[Play it now](https://healeycodes.github.io/doom-checkboxes/) (desktop only).
 
 ## The Pitch
 
