@@ -7,70 +7,72 @@
 -->
 
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>DOOM Rendered via Checkboxes</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>DOOM via Checkboxes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
     <style>
-      * {
-        font-family: sans-serif;
-      }
-      body {
-        padding: 10px;
-      }
-      #hide {
-        display: none;
-      }
-      #checkboxes {
-        zoom: 0.4;
-        pointer-events: none;
-      }
-      video {
-        zoom: 2;
-      }
+        * {
+            font-family: sans-serif;
+        }
+        
+        body {
+            padding: 10px;
+        }
+        
+        #hide {
+            display: none;
+        }
+        
+        #checkboxes {
+            zoom: 0.4;
+            pointer-events: none;
+        }
+        
+        video {
+            zoom: 2;
+        }
     </style>
-  </head>
+</head>
 
-  <body>
+<body>
     <p>
-      <strong>DOOM</strong>, rendered via Checkboxes. Desktop only. By <a href="https://twitter.com/healeycodes">@healeycodes</a>. Star this: <a href="https://github.com/healeycodes/doom-checkboxes">healeycodes/doom-checkboxes</a>.
-    </p>   
+        <strong>DOOM</strong> via checkboxes. Desktop only. By <a href="https://twitter.com/healeycodes">@healeycodes</a>. Read the blog post: <a href="https://healeycodes.com/doom-rendered-via-checkboxes">DOOM Rendered via Checkboxes</a>.
+    </p>
     <div id="hide">
-    <p id="focushint"></p>
-      <div class="container" style="display: none">
-        <canvas id="screen" width="640" height="400" tabindex="0"
-          >This is where the DooM screen should render.</canvas
-        >
-        <span>&nbsp;</span>
-        <div id="output"></div>
-      </div>
-      gettmilliseconds calls per second: <span id="getmsps_stats">0</span> Total
-      getmilliseconds calls: <span id="getms_stats">0</span><br />
-      DooM FPS: <span id="fps_stats">0</span> (target: 35FPS) Total Frames
-      drawn: <span id="drawframes_stats">0</span><br />
-      Browser Animation FPS: <span id="animationfps_stats">0</span> (target:
-      around 60FPS, depending on browser)<br />
+        <p id="focushint"></p>
+        <div class="container" style="display: none">
+            <canvas id="screen" width="640" height="400" tabindex="0">This is where the DooM screen should render.</canvas>
+            <span>&nbsp;</span>
+            <div id="output"></div>
+        </div>
+        gettmilliseconds calls per second: <span id="getmsps_stats">0</span> Total getmilliseconds calls: <span id="getms_stats">0</span><br /> DooM FPS: <span id="fps_stats">0</span> (target: 35FPS) Total Frames drawn: <span id="drawframes_stats">0</span><br
+        /> Browser Animation FPS: <span id="animationfps_stats">0</span> (target: around 60FPS, depending on browser)<br />
     </div>
-      <ul>
-      <li>Use <button id="enterButton">&#x23CE;</button> to start the game</li>
+    <ul>
+        <li>Use <button id="enterButton">&#x23CE;</button> to start the game</li>
         <li>arrow keys <button id="leftButton">&#x2190;</button>
-        <button id="upButton">&#x2191;</button>
-        <button id="downButton">&#x2193;</button>
-        <button id="rightButton">&#x2192;</button> to move 
-        <button id="ctrlButton">ctrl</button> to shoot</li>
-       
-        <li>spacebar <button id="spaceButton">&nbsp;&nbsp;&nbsp;&nbsp;</button> to open
-        gates</li>
-         <li><button id="altButton">alt</button> and arrow keys to strafe (if
-        your browser does not handle these keys otherwise).</li>
-          </ul>
+            <button id="upButton">&#x2191;</button>
+            <button id="downButton">&#x2193;</button>
+            <button id="rightButton">&#x2192;</button> to move
+            <button id="ctrlButton">ctrl</button> to shoot
+        </li>
+
+        <li>spacebar <button id="spaceButton">&nbsp;&nbsp;&nbsp;&nbsp;</button> to open gates
+        </li>
+        <li><button id="altButton">alt</button> and arrow keys to strafe (if your browser does not handle these keys otherwise).
+        </li>
+    </ul>
     </div>
     <video id="doom-video" width="160" height="100"></video>
     <div id="checkboxes"></div>
     <p>Credits: DOOM via <a href="https://github.com/diekmann/wasm-fizzbuzz">WebAssembly from Scratch Article</a>, Checkbox library via <a href="https://www.bryanbraun.com/checkboxland/">Checkboxland</a>.
-  </body>
+</body>
 
-  <script type="module" src="glue.js"></script>
-  <script src="doom.js" defer></script>
+<script type="module" src="glue.js"></script>
+<script src="doom.js" defer></script>
+
 </html>
