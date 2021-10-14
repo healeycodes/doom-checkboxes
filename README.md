@@ -13,7 +13,7 @@
 
 > I don't think you can really say you've exhaused this until you can run DOOM rendered with checkboxes.
 
-— bartread [on Hacker News](https://news.ycombinator.com/item?id=28826839)
+— a commenter wrote [on Hacker News](https://news.ycombinator.com/item?id=28826839)
 
 <br>
 
