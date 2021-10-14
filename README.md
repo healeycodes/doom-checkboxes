@@ -1,14 +1,21 @@
-## DOOM via Checkboxes
+## :joystick: DOOM via Checkboxes
+> My blog post: [DOOM Rendered via Checkboxes](https://healeycodes.com/doom-rendered-via-checkboxes)
+
+<br>
+
+![Preview image of DOOM/DOOM checkboxes](https://github.com/healeycodes/doom-checkboxes/blob/main/preview.png)
+
+<br>
+
+[Play it now](https://healeycodes.github.io/doom-checkboxes/) (desktop only).
+
+## The Pitch
 
 > I don't think you can really say you've exhaused this until you can run DOOM rendered with checkboxes.
 
 — bartread [on Hacker News](https://news.ycombinator.com/item?id=28826839)
 
-![Preview image of DOOM/DOOM checkboxes](https://github.com/healeycodes/doom-checkboxes/blob/main/preview.png)
-
-[Play it now](https://healeycodes.github.io/doom-checkboxes/) (desktop only).
-
-## The Pitch
+<br>
 
 Bryan Braun gave us [Checkboxland](https://www.bryanbraun.com/checkboxland/), a unique library for rendering text, shapes, and video, via a grid of checkboxes.
 
