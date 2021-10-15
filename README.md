@@ -7,7 +7,7 @@
 
 <br>
 
-[Play it now](https://healeycodes.github.io/doom-checkboxes/) (desktop only).
+[Play it now](https://healeycodes.github.io/doom-checkboxes/) (desktop Chrome/Edge only).
 
 ## The Pitch
 
