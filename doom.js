@@ -87,19 +87,19 @@ function drawCanvas(ptr) {
 
   ctx.putImageData(render_screen, 0, 0);
 
-  if (number_of_draws === 30) {
-    const base64Image = canvas.toDataURL().replace(/(\r\n|\n|\r)/gm, "");
-    console.clear();
-    console.log("");
-    console.log("");
-    console.log("");
-    for (let i = 0; i < 5; i++) {
-      console.log(
-        "%c x\n",
-        `font-size:400px; color: transparent;border-top:90px;background:url(${base64Image}) no-repeat; background-size: contain;`
-      );
-    }
-  }
+  // if (number_of_draws === 30) {
+  //   const base64Image = canvas.toDataURL().replace(/(\r\n|\n|\r)/gm, "");
+  //   console.clear();
+  //   console.log("");
+  //   console.log("");
+  //   console.log("");
+  //   for (let i = 0; i < 5; i++) {
+  //     console.log(
+  //       "%c x\n",
+  //       `font-size:400px; color: transparent;border-top:90px;background:url(${base64Image}) no-repeat; background-size: contain;`
+  //     );
+  //   }
+  // }
 
   ++number_of_draws;
 }
