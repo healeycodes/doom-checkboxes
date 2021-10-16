@@ -81,9 +81,19 @@ const drawCanvas = (ptr) => {
     doom_screen_width,
     doom_screen_height
   );
+
   const ctx = canvas.getContext("2d");
 
   ctx.putImageData(render_screen, 0, 0);
+
+  const base64Image = canvas.toDataURL().replace(/(\r\n|\n|\r)/gm, "");
+  for (let i = 0; i < 5; i++) {
+    console.log(
+      "%c X",
+      `font-size:400px;color: transparent;background:url(${base64Image}) no-repeat; background-size: contain;margin-top: 140px;margin-left: 60px;`
+    );
+  }
+
   ++number_of_draws;
 };
 
@@ -101,6 +111,7 @@ const importObject = {
   },
 };
 
+let shouldClearConsole = true;
 /**
  * Temporarily using instantiate instead of instantiateStream because developing with live server.
  */
@@ -214,10 +225,30 @@ const importObject = {
 
   /*Main game loop*/
   const step = (timestamp) => {
+    // if (shouldClearConsole) {console.clear();}
     ++number_of_animation_frames;
     obj.instance.exports.doom_loop_step();
+    shouldClearConsole = false;
     window.requestAnimationFrame(step);
   };
   window.requestAnimationFrame(step);
   window.doomLoaded = true;
 })();
+
+setInterval(() => {
+  shouldClearConsole = true;
+}, 3000);
+
+const forwardKey = (e, type) => {
+  const ev = new KeyboardEvent(type, {
+    key: e.key,
+    keyCode: e.keyCode,
+  });
+  canvas.dispatchEvent(ev);
+};
+document.body.addEventListener("keydown", (e) => forwardKey(e, "keydown"));
+document.body.addEventListener("keyup", (e) => forwardKey(e, "keyup"));
+
+if (!window.doomLoaded) {
+  console.log("Loading DOOM...");
+}
