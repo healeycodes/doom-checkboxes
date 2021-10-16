@@ -5,7 +5,6 @@
 const memory = new WebAssembly.Memory({ initial: 108 });
 /*stdout and stderr goes here*/
 const output = document.getElementById("output");
-
 const readWasmString = (offset, length) => {
   const bytes = new Uint8Array(memory.buffer, offset, length);
   return new TextDecoder("utf8").decode(bytes);
