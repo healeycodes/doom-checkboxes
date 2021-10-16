@@ -112,6 +112,7 @@ let shouldClearConsole = true;
 /**
  * Temporarily using instantiate instead of instantiateStream because developing with live server.
  */
+
 (async () => {
   const doomFile = await fetch("doom.wasm");
   const buffer = await doomFile.arrayBuffer();
