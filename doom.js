@@ -109,128 +109,121 @@ const importObject = {
 };
 
 let shouldClearConsole = true;
-/**
- * Temporarily using instantiate instead of instantiateStream because developing with live server.
- */
+WebAssembly.instantiateStreaming(fetch("doom.wasm"), importObject).then(
+  (obj) => {
+    /*Initialize Doom*/
+    obj.instance.exports.main();
 
-(async () => {
-  const doomFile = await fetch("doom.wasm");
-  const buffer = await doomFile.arrayBuffer();
-  const obj = await WebAssembly.instantiate(buffer, importObject);
+    /*input handling*/
+    const doomKeyCode = (keyCode) => {
+      // Doom seems to use mostly the same keycodes, except for the following (maybe I'm missing a few.)
+      switch (keyCode) {
+        case 8:
+          return 127; // KEY_BACKSPACE
+        case 17:
+          return 0x80 + 0x1d; // KEY_RCTRL
+        case 18:
+          return 0x80 + 0x38; // KEY_RALT
+        case 37:
+          return 0xac; // KEY_LEFTARROW
+        case 38:
+          return 0xad; // KEY_UPARROW
+        case 39:
+          return 0xae; // KEY_RIGHTARROW
+        case 40:
+          return 0xaf; // KEY_DOWNARROW
+        default:
+          if (keyCode >= 65 /*A*/ && keyCode <= 90 /*Z*/) {
+            return keyCode + 32; // ASCII to lower case
+          }
+          if (keyCode >= 112 /*F1*/ && keyCode <= 123 /*F12*/) {
+            return keyCode + 75; // KEY_F1
+          }
+          return keyCode;
+      }
+    };
+    const keyDown = (keyCode) => {
+      obj.instance.exports.add_browser_event(0 /*KeyDown*/, keyCode);
+    };
+    const keyUp = (keyCode) => {
+      obj.instance.exports.add_browser_event(1 /*KeyUp*/, keyCode);
+    };
 
-  /*Initialize Doom*/
-  obj.instance.exports.main();
+    /*keyboard input*/
+    canvas.addEventListener(
+      "keydown",
+      (event) => {
+        keyDown(doomKeyCode(event.keyCode));
+        event.preventDefault();
+      },
+      false
+    );
+    canvas.addEventListener(
+      "keyup",
+      (event) => {
+        keyUp(doomKeyCode(event.keyCode));
+        event.preventDefault();
+      },
+      false
+    );
 
-  /*input handling*/
-  const doomKeyCode = (keyCode) => {
-    // Doom seems to use mostly the same keycodes, except for the following (maybe I'm missing a few.)
-    switch (keyCode) {
-      case 8:
-        return 127; // KEY_BACKSPACE
-      case 17:
-        return 0x80 + 0x1d; // KEY_RCTRL
-      case 18:
-        return 0x80 + 0x38; // KEY_RALT
-      case 37:
-        return 0xac; // KEY_LEFTARROW
-      case 38:
-        return 0xad; // KEY_UPARROW
-      case 39:
-        return 0xae; // KEY_RIGHTARROW
-      case 40:
-        return 0xaf; // KEY_DOWNARROW
-      default:
-        if (keyCode >= 65 /*A*/ && keyCode <= 90 /*Z*/) {
-          return keyCode + 32; // ASCII to lower case
-        }
-        if (keyCode >= 112 /*F1*/ && keyCode <= 123 /*F12*/) {
-          return keyCode + 75; // KEY_F1
-        }
-        return keyCode;
-    }
-  };
-  const keyDown = (keyCode) => {
-    obj.instance.exports.add_browser_event(0 /*KeyDown*/, keyCode);
-  };
-  const keyUp = (keyCode) => {
-    obj.instance.exports.add_browser_event(1 /*KeyUp*/, keyCode);
-  };
+    /*mobile touch input*/
+    [
+      ["enterButton", 13],
+      ["leftButton", 0xac],
+      ["rightButton", 0xae],
+      ["upButton", 0xad],
+      ["downButton", 0xaf],
+      ["ctrlButton", 0x80 + 0x1d],
+      ["spaceButton", 32],
+      ["altButton", 0x80 + 0x38],
+    ].forEach(([elementID, keyCode]) => {
+      const button = document.getElementById(elementID);
+      button.addEventListener("touchstart", () => keyDown(keyCode));
+      button.addEventListener("touchend", () => keyUp(keyCode));
+      button.addEventListener("touchcancel", () => keyUp(keyCode));
+    });
 
-  /*keyboard input*/
-  canvas.addEventListener(
-    "keydown",
-    (event) => {
-      keyDown(doomKeyCode(event.keyCode));
-      event.preventDefault();
-    },
-    false
-  );
-  canvas.addEventListener(
-    "keyup",
-    (event) => {
-      keyUp(doomKeyCode(event.keyCode));
-      event.preventDefault();
-    },
-    false
-  );
-
-  /*mobile touch input*/
-  [
-    ["enterButton", 13],
-    ["leftButton", 0xac],
-    ["rightButton", 0xae],
-    ["upButton", 0xad],
-    ["downButton", 0xaf],
-    ["ctrlButton", 0x80 + 0x1d],
-    ["spaceButton", 32],
-    ["altButton", 0x80 + 0x38],
-  ].forEach(([elementID, keyCode]) => {
-    const button = document.getElementById(elementID);
-    button.addEventListener("touchstart", () => keyDown(keyCode));
-    button.addEventListener("touchend", () => keyUp(keyCode));
-    button.addEventListener("touchcancel", () => keyUp(keyCode));
-  });
-
-  /*hint that the canvas should have focus to capute keyboard events*/
-  const focushint = document.getElementById("focushint");
-  const printFocusInHint = (e) => {
-    focushint.innerText =
-      "Keyboard events will be captured as long as the the DOOM canvas has focus.";
-    focushint.style.fontWeight = "800";
-  };
-  canvas.addEventListener("focusin", printFocusInHint, false);
-  canvas.addEventListener(
-    "focusout",
-    (e) => {
+    /*hint that the canvas should have focus to capute keyboard events*/
+    const focushint = document.getElementById("focushint");
+    const printFocusInHint = (e) => {
       focushint.innerText =
-        "Click on the canvas to capute input and start playing.";
-      focushint.style.fontWeight = "bold";
-    },
-    false
-  );
-  canvas.focus();
-  printFocusInHint();
+        "Keyboard events will be captured as long as the the DOOM canvas has focus.";
+      focushint.style.fontWeight = "800";
+    };
+    canvas.addEventListener("focusin", printFocusInHint, false);
+    canvas.addEventListener(
+      "focusout",
+      (e) => {
+        focushint.innerText =
+          "Click on the canvas to capute input and start playing.";
+        focushint.style.fontWeight = "bold";
+      },
+      false
+    );
+    canvas.focus();
+    printFocusInHint();
 
-  /*printing stats*/
-  const animationfps_stats = document.getElementById("animationfps_stats");
-  let number_of_animation_frames = 0; // in current second
-  window.setInterval(() => {
-    animationfps_stats.innerText = number_of_animation_frames;
-    number_of_animation_frames = 0;
-  }, 1000);
+    /*printing stats*/
+    const animationfps_stats = document.getElementById("animationfps_stats");
+    let number_of_animation_frames = 0; // in current second
+    window.setInterval(() => {
+      animationfps_stats.innerText = number_of_animation_frames;
+      number_of_animation_frames = 0;
+    }, 1000);
 
-  /*Main game loop*/
-  const step = (timestamp) => {
-    // if (shouldClearConsole) {console.clear();}
-    ++number_of_animation_frames;
-    obj.instance.exports.doom_loop_step();
-    shouldClearConsole = false;
+    /*Main game loop*/
+    const step = (timestamp) => {
+      // if (shouldClearConsole) {console.clear();}
+      ++number_of_animation_frames;
+      obj.instance.exports.doom_loop_step();
+      shouldClearConsole = false;
+      window.requestAnimationFrame(step);
+    };
     window.requestAnimationFrame(step);
-  };
-  window.requestAnimationFrame(step);
-  window.doomLoaded = true;
-})();
-
+    window.doomLoaded = true;
+  }
+);
 setInterval(() => {
   shouldClearConsole = true;
 }, 3000);
