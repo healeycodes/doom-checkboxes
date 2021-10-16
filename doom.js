@@ -83,12 +83,10 @@ const drawCanvas = (ptr) => {
   ctx.putImageData(render_screen, 0, 0);
 
   const base64Image = canvas.toDataURL().replace(/(\r\n|\n|\r)/gm, "");
-  for (let i = 0; i < 5; i++) {
-    console.log(
-      "%c X",
-      `font-size:400px;color: transparent;background:url(${base64Image}) no-repeat; background-size: contain;margin-top: 140px;margin-left: 60px;`
-    );
-  }
+  console.log(
+    "%c X",
+    `font-size:400px;color: transparent;background:url(${base64Image}) no-repeat; background-size: contain;margin-top: 140px;margin-left: 60px;`
+  );
 
   ++number_of_draws;
 };
