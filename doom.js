@@ -3,7 +3,6 @@
 
 "use strict";
 const memory = new WebAssembly.Memory({ initial: 108 });
-
 /*stdout and stderr goes here*/
 const output = document.getElementById("output");
 
@@ -11,12 +10,10 @@ const readWasmString = (offset, length) => {
   const bytes = new Uint8Array(memory.buffer, offset, length);
   return new TextDecoder("utf8").decode(bytes);
 };
-
 const consoleLogString = (offset, length) => {
   const string = readWasmString(offset, length);
   console.log('"' + string + '"');
 };
-
 const appendOutput = (style) => {
   return (offset, length) => {
     const lines = readWasmString(offset, length).split("\n");
@@ -198,10 +195,9 @@ let shouldClearConsole = true;
   const printFocusInHint = (e) => {
     focushint.innerText =
       "Keyboard events will be captured as long as the the DOOM canvas has focus.";
-    focushint.style.fontWeight = "normal";
+    focushint.style.fontWeight = "800";
   };
   canvas.addEventListener("focusin", printFocusInHint, false);
-
   canvas.addEventListener(
     "focusout",
     (e) => {
@@ -211,7 +207,6 @@ let shouldClearConsole = true;
     },
     false
   );
-
   canvas.focus();
   printFocusInHint();
 
@@ -248,7 +243,6 @@ const forwardKey = (e, type) => {
 };
 document.body.addEventListener("keydown", (e) => forwardKey(e, "keydown"));
 document.body.addEventListener("keyup", (e) => forwardKey(e, "keyup"));
-
 if (!window.doomLoaded) {
   console.log("Loading DOOM...");
 }
