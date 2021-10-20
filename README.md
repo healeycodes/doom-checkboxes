@@ -40,10 +40,6 @@ const cbl = new Checkboxland({
 });
 ```
 
-The cursed CSS property [zoom](https://developer.mozilla.org/en-US/docs/Web/CSS/zoom) is used to shrink the checkboxes down. `transform: scale(x)` resulted in worse performance, and worse visuals. Unfortunately, this means that Firefox users need to manually zoom out.
-
-> Non-standard: This feature is non-standard and is not on a standards track. Do not use it on production sites facing the Web: it will not work for every user.
-
 Key events are forwarded to the hidden `<canvas>` to avoid focus issues.
 
 ```js

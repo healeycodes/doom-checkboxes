@@ -19,22 +19,28 @@
         * {
             font-family: sans-serif;
         }
-        
+
         body {
             padding: 5px;
         }
-        
+
         #hide {
             display: none;
         }
-        
-        #checkboxes {
-            zoom: 0.4;
+
+        #checkboxes > div {
+            line-height: calc(0.4 * 0.75) !important;
+        }
+
+        #checkboxes input {
+            width: calc(0.4 * 13px);
+            height: calc(0.4 * 13px);
             pointer-events: none;
         }
-        
+
         video {
-            zoom: 2;
+            width: 320px;
+            height: 200px;
         }
     </style>
 </head>
